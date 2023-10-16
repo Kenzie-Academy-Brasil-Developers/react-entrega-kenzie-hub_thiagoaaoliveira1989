@@ -1,0 +1,48 @@
+.inputBox,
+.selectBox {
+    margin-top: 22px;
+    text-align: start;
+
+    .label {
+        font-family: var(--font-primary);
+        font-size: 0.7612rem;
+        font-weight: 400;
+        color: var(--color-grey0);
+    }
+
+    input,
+    select {
+        margin-top: 20px;
+        width: 100%;
+        font-family: var(--font-primary);
+        font-size: 16.24px;
+        font-weight: 400;
+        color: var(--color-grey5);
+        padding: 0 20px;
+        height: 3rem;
+        background-color: var(--color-grey2);
+        border: 1.22px solid var(--color-grey2);
+        border-radius: 4px;
+
+        &:disabled {
+            opacity: .5;
+        }
+
+        &:focus {
+            border: 1.22px solid var(--color-grey0);
+
+        }
+
+        &:focus::placeholder {
+            color: var(--color-grey0);
+
+        }
+
+    }
+
+    p {
+        margin-top: 0.5rem;
+        color: var(--negative);
+    }
+
+}

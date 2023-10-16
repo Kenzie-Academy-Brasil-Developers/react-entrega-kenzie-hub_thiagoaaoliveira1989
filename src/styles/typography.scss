@@ -1,0 +1,62 @@
+.title1 {
+    font-weight: 700;
+    font-size: 1.1419rem;
+    line-height: 1.7763rem;
+    color: var(--color-grey0);
+
+    &.tp_37{
+        margin-top: 37px;
+    }
+
+}
+
+.tile2 {
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.6494rem;
+    color: var(--color-grey0);
+}
+
+.headline {
+    font-weight: 400;
+    font-size: 12.18px;
+    line-height: 22.33px;
+    color: #FFF;
+
+    &.bold {
+        font-family: 600;
+        font-size: 12.18px;
+        line-height: 18.27px;
+
+        &.grey1 {
+            color: var(--color-grey1);
+        }
+    }
+
+}
+
+.grey1 {
+    color: var(--color-grey1);
+}
+
+.paragraph {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18.27px;
+    color: #FFF;
+
+    &.one{
+        margin-top: 23px;
+        line-height: 24.36px;
+    }
+}
+
+.text_btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.6494rem;
+    color: #FFF;
+}

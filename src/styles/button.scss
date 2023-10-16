@@ -1,0 +1,49 @@
+.btn {
+
+    max-width: 100%;
+    width: 100%;
+    padding: 10.5px 0;
+    margin-top: 22px;
+    border-radius: 4px;
+
+    &.primary {
+        background-color: var(--color-primary);
+        border: 1.22px solid var(--color-primary);
+
+        &:hover {
+            background-color: var(--color-primary-focus);
+            border: 1.22px solid var(--color-primary-focus);
+
+        }
+
+    }
+
+    &.negativo {
+        background-color: var(--color-primary-negative);
+
+
+
+    }
+
+
+    &.disabled {
+        background-color: var(--color-grey1);
+
+        &:hover {
+            background-color: var(--color-grey2);
+
+        }
+
+        &.small {
+            margin-top: 0;
+            width: 67.49px;
+            height: 40.11px;
+        }
+    }
+
+}
+
+.btnForm,
+.mt-22 {
+    margin-top: 22px;
+}
