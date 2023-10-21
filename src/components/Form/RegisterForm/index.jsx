@@ -3,14 +3,14 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useNavigate } from "react-router-dom";
 import { registerFormSchema } from "./registerForm.schema";
 import Input from "../Input";
-import { useState } from "react";
-import api from './../../../services/api';
-import { toast } from "react-toastify";
+import { useContext, useState } from "react";
+import { UserContext } from "../../../providers/UserContext";
 
 
 export default () => {
 
-    const [loading, setLoading] = useState(false);
+    const { userRegister, loading } = useContext(UserContext);
+
     const navigate = useNavigate();
 
     const {
@@ -22,25 +22,7 @@ export default () => {
     });
 
 
-    const userRegister = async (payload) => {
-        console.log(payload);
-        try {
-            setLoading(true);
-            await api.post("/users", payload);
-            toast.success("Conta criada com sucesso!", {
-                className: "toast-custom-background",
-            })
-            navigate("/")
 
-        } catch (error) {
-            toast.error("Ops! Algo deu errado", {
-                className: "toast-custom-background",
-            })
-        } finally {
-            setLoading(false);
-
-        }
-    }
 
     const submit = (payload) => {
         userRegister(payload);

@@ -6,19 +6,6 @@ import pageBox from "../../styles/module/pageBox.module.scss";
 
 export default () => {
 
-    const token = localStorage.getItem("@Token");
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (token) {
-            navigate("/dashboard");
-        }
-    }, [token, navigate]);
-
-    if (token) {
-        return null;
-    }
-
 
     return (
         <main className={pageBox.pageBox}>

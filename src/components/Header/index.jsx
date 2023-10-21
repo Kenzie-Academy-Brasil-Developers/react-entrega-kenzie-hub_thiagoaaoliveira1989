@@ -1,24 +1,15 @@
-import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/Logo.svg"
-import pageBox from "../../styles/module/pageBox.module.scss";
-import { toast } from "react-toastify";
+import { useContext } from "react";
+import { UserContext } from "../../providers/UserContext";
 
-export default ({ setUserProfile }) => {
-    const navigate = useNavigate();
+export default () => {
+    const { logout } = useContext(UserContext);
 
-    const logout = () => {
-        localStorage.removeItem("@Token");
-        setUserProfile(null);
-        toast.success("Usuario desconectado!", {
-            className: "toast-custom-background",
-        });
-        navigate("/");
-    }
 
     return (
         <header className="container lg h_72">
             <img src={Logo} alt="" />
-            <button onClick={logout}  className="btn disabled small text_btn">Sair</button>
+            <button onClick={logout} className="btn disabled small text_btn">Sair</button>
         </header>
     )
 }

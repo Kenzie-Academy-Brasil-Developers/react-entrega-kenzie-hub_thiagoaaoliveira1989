@@ -1,50 +1,24 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useNavigate } from "react-router-dom";
 import Input from "../Input";
-import { useEffect, useState } from "react";
-import api from './../../../services/api';
+import { useContext } from "react";
 import { loginFormSchema } from "./loginForm.schema";
-import { toast } from "react-toastify";
+import { UserContext } from "../../../providers/UserContext";
 
 
 export default () => {
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
-
-
     const {
         register,
         handleSubmit,
-        formState: { errors, isDirty, isValid },
+        formState: { errors },
     } = useForm({
         resolver: zodResolver(loginFormSchema),
     });
 
-
-    const userRegister = async (payload) => {
-        try {
-            setLoading(true);
-            const { data } = await api.post("/sessions", payload);
-            const { token } = data
-            localStorage.setItem("@Token", token);
-            toast.success("Login realizado com sucesso!", {
-                className: "toast-custom-background",
-            })
-            navigate("/dashboard");
-
-        } catch (error) {
-            toast.error("Email ou Senha incorretos", {
-                className: "toast-custom-background",
-            });
-        } finally {
-            setLoading(false);
-
-        }
-    }
+    const { userLogin, loading } = useContext(UserContext);
 
     const submit = (payload) => {
-        userRegister(payload);
+        userLogin(payload);
     }
 
 
