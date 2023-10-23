@@ -38,6 +38,7 @@ export default () => {
                 label="Senha"
                 type="password"
                 id="password"
+                autoComplete="current-password"
                 placeholder="Digite aqui sua senha"
                 {...register("password")}
                 error={errors.password}

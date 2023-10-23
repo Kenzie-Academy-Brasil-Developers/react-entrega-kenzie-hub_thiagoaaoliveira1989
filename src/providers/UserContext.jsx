@@ -6,40 +6,44 @@ import { useNavigate } from "react-router-dom";
 export const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
-    const [userProfile, setUserProfile] = useState(null);
+    const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
 
     useEffect(() => {
-        const token = localStorage.getItem("@Token");
+        const token = localStorage.getItem("@TOKEN")
 
-        const getProfile = async () => {
+        if (token) {
             try {
-                setLoading(true);
-                const { data } = await api.get("/profile", {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                setUserProfile(data);
+                const loadUser = async () => {
+                    const { data } = await api.get("/profile", {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    });
+                    setUser(data);
+                }
+
+                loadUser();
 
             } catch (error) {
-                console.log(error);
-            } finally {
-                setLoading(false);
+                toast.error("Ops! Algum erro aconteceu.", {
+                    className: "toast-custom-background",
+                });
             }
         }
-        getProfile();
+    }, [])
 
-    }, []);
 
     const userLogin = async (payload) => {
         try {
             setLoading(true);
             const { data } = await api.post("/sessions", payload);
-            const { token } = data
-            localStorage.setItem("@Token", token);
+
+            localStorage.setItem("@TOKEN", data.token);
+            setUser(data.user);
+
             toast.success("Login realizado com sucesso!", {
                 className: "toast-custom-background",
             })
@@ -81,17 +85,17 @@ export const UserProvider = ({ children }) => {
         }
     }
 
-    const logout = () => {
-        localStorage.removeItem("@Token");
-        setUserProfile(null);
-        toast.success("Usuario desconectado!", {
-            className: "toast-custom-background",
-        });
+    const userLogout = () => {
+        setUser(null);
         navigate("/");
+        localStorage.removeItem("@TOKEN");
+        toast.warn("Deslogando...", {
+            className: "toast-custom-background",
+        })
     }
 
     return (
-        <UserContext.Provider value={{ setUserProfile, userProfile, userLogin, userRegister, loading, logout }}>
+        <UserContext.Provider value={{ user, userLogin, userRegister, loading, userLogout }}>
             {children}
         </UserContext.Provider>
     )

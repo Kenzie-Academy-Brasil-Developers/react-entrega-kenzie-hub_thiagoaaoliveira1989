@@ -1,15 +1,20 @@
 import { Route, Routes } from "react-router-dom";
 import { DashboardPage, ErrorPage, LoginPage, RegisterPage } from "../pages";
-import { useState } from "react";
+import { PrivateRoutes } from './PrivateRoutes/index';
+import { PublicRoutes } from './PublicRoutes/index';
 
 
 export default () => {
 
     return (
         <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route element={<PublicRoutes />}>
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+            </Route>
+            <Route path="/dashboard" element={<PrivateRoutes />} >
+                <Route index element={<DashboardPage />} />
+            </Route>
             <Route path="*" element={<ErrorPage />} />
         </Routes>
     )
