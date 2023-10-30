@@ -29,7 +29,11 @@ export const UserProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        loadUser();
+
+        if (token) {
+            loadUser();
+        }
+
     }, []);
 
 

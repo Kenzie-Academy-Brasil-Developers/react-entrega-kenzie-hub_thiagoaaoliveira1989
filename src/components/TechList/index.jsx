@@ -7,7 +7,7 @@ import { TechContext } from "../../providers/TechContext";
 export const TechList = () => {
 
     const { hiddenModal, techList } = useContext(TechContext);
-
+    const techs = techList ? techList.techs : [];
     return (
         <section className="container lg h_full">
             <div className={styles.card_list_container}>
@@ -16,7 +16,7 @@ export const TechList = () => {
                     <button onClick={() => hiddenModal()}><MdAdd color="white" size={16} /></button>
                 </div>
                 <div>
-                    {techList ? (
+                    {techs.length > 0 ? (
                         <>
                             <ul className={styles.card_list}>
                                 {techList.techs.map((tech) => {

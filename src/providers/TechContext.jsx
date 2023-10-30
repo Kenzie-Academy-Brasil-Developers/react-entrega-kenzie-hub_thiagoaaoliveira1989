@@ -13,7 +13,6 @@ export const TechProvider = ({ children }) => {
 
 
     useEffect(() => {
-        console.log(user);
         setTechList(user);
     }, [user]);
 
