@@ -1,0 +1,32 @@
+.card_list_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.card_list_top {
+    display: flex;
+    justify-content: space-between;
+    height: 33px;
+    margin-top: 11px;
+    margin-bottom: 21px;
+
+    & button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        background-color: var(--color-grey2);
+    }
+}
+
+
+.card_list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #212529;
+    padding: 23px 26px 25px 22px;
+    margin-bottom: 30px;
+}

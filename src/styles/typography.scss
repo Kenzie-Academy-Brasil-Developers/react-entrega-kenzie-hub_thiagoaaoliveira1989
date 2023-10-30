@@ -1,20 +1,33 @@
 .title1 {
     font-weight: 700;
     font-size: 1.1419rem;
-    line-height: 1.7763rem;
+    line-height: 28.4208px;
     color: var(--color-grey0);
 
-    &.tp_37{
+    &.tp_37 {
         margin-top: 37px;
     }
 
 }
 
-.tile2 {
+.title2 {
     font-weight: 600;
     font-size: 1rem;
     line-height: 1.6494rem;
     color: var(--color-grey0);
+}
+
+
+.title3 {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+
+    &.grey0 {
+        color: var(--grey-0, #F8F9FA);
+
+    }
 }
 
 .headline {
@@ -45,7 +58,7 @@
     line-height: 18.27px;
     color: #FFF;
 
-    &.one{
+    &.one {
         margin-top: 23px;
         line-height: 24.36px;
     }
@@ -59,4 +72,12 @@
     font-size: 1rem;
     line-height: 1.6494rem;
     color: #FFF;
+}
+
+.tech {
+    color: #FFF;
+    font-size: 14.21px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 22.334px;
 }

@@ -5,6 +5,7 @@ import { registerFormSchema } from "./registerForm.schema";
 import Input from "../Input";
 import { useContext, useState } from "react";
 import { UserContext } from "../../../providers/UserContext";
+import Select from "../Select";
 
 
 export default () => {
@@ -29,6 +30,12 @@ export default () => {
     }
 
 
+    const options = [
+        { value: "primeiro", label: "Primeiro módulo" },
+        { value: "segundo", label: "Segundo módulo" },
+        { value: "terceiro", label: "Terceiro módulo" },
+        { value: "quarto", label: "Quarto módulo" },
+    ]
 
     return (
         <form onSubmit={handleSubmit(submit)}>
@@ -84,15 +91,15 @@ export default () => {
                 error={errors.contact}
             />
 
-            <div className="inputBox">
-                <label className="label" htmlFor="course_module">Selecionar Módulo</label>
-                <select id="course_module" required {...register("course_module")}>
-                    <option value="Primeiro módulo (Introdução ao Frontend)">Primeiro módulo</option>
-                    <option value="Segundo módulo (Frontend Avançado)">Segundo módulo</option>
-                    <option value="Terceiro módulo (Introdução ao Backend)">Terceiro módulo</option>
-                    <option value="Quarto módulo (Backend Avançado)">Quarto módulo</option>
-                </select>
-            </div>
+            <Select
+                label="Selecionar Módulo"
+                id="couser_module"
+                {...register("couser_module")}
+                options={options}
+                error={errors.couser_module}
+
+            />
+
 
             <button disabled={loading} className="btn negativo text_btn" type="submit">Cadastrar</button>
 

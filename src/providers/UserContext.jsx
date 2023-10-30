@@ -1,7 +1,8 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import api from './../services/api';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { TechContext } from "./TechContext";
 
 export const UserContext = createContext({});
 
@@ -9,31 +10,27 @@ export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const token = localStorage.getItem("@TOKEN")
 
+
+    const loadUser = async () => {
+        try {
+            const { data } = await api.get("/profile", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            setUser(data);
+        } catch (error) {
+            console.log(error);
+            alert("Algo de inesperado aconteceu!");
+        }
+
+    }
 
     useEffect(() => {
-        const token = localStorage.getItem("@TOKEN")
-
-        if (token) {
-            try {
-                const loadUser = async () => {
-                    const { data } = await api.get("/profile", {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    });
-                    setUser(data);
-                }
-
-                loadUser();
-
-            } catch (error) {
-                toast.error("Ops! Algum erro aconteceu.", {
-                    className: "toast-custom-background",
-                });
-            }
-        }
-    }, [])
+        loadUser();
+    }, []);
 
 
     const userLogin = async (payload) => {
