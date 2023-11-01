@@ -1,9 +1,8 @@
-import { MdAdd } from "react-icons/md";
 import { TechCard } from "./TechCard";
 import styles from "./style.module.scss";
 import { useContext } from "react";
 import { TechContext } from "../../providers/TechContext";
-
+import BtnPlus from "../../assets/ButtonPlus.svg"
 export const TechList = () => {
 
     const { hiddenModal, techList } = useContext(TechContext);
@@ -13,7 +12,7 @@ export const TechList = () => {
             <div className={styles.card_list_container}>
                 <div className={styles.card_list_top}>
                     <p className="title2">Tecnologias</p>
-                    <button onClick={() => hiddenModal()}><MdAdd color="white" size={16} /></button>
+                    <button onClick={() => hiddenModal()}> <img src={BtnPlus} /> </button>
                 </div>
                 <div>
                     {techs.length > 0 ? (

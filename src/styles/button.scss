@@ -27,11 +27,12 @@
 
 
     &.disabled {
-        background-color: var(--color-grey1);
+        background-color: var(--color-grey2);
+        color: white;
 
         &:hover {
-            background-color: var(--color-grey2);
 
+            background-color: var(--color-grey1);
         }
 
         &.small {
