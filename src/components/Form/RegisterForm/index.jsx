@@ -1,23 +1,21 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useNavigate } from "react-router-dom";
 import { registerFormSchema } from "./registerForm.schema";
 import Input from "../Input";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../../providers/UserContext";
 import Select from "../Select";
 
 
 export default () => {
 
-    const { userRegister, loading } = useContext(UserContext);
+    const { userRegister } = useContext(UserContext);
 
-    const navigate = useNavigate();
 
     const {
         register,
         handleSubmit,
-        formState: { errors, isDirty, isValid },
+        formState: { errors },
     } = useForm({
         resolver: zodResolver(registerFormSchema),
     });
@@ -26,7 +24,8 @@ export default () => {
 
 
     const submit = (payload) => {
-        userRegister(payload);
+        console.log(payload);
+        userRegister.mutate(payload);
     }
 
 
@@ -101,7 +100,7 @@ export default () => {
             />
 
 
-            <button disabled={loading} className="btn negativo text_btn" type="submit">Cadastrar</button>
+            <button className="btn negativo text_btn" type="submit">Cadastrar</button>
 
         </form>
     )

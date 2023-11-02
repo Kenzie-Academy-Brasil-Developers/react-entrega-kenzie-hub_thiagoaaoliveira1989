@@ -3,10 +3,12 @@ import styles from "./style.module.scss";
 import { useContext } from "react";
 import { TechContext } from "../../providers/TechContext";
 import BtnPlus from "../../assets/ButtonPlus.svg"
+import { UserContext } from "../../providers/UserContext";
 export const TechList = () => {
 
-    const { hiddenModal, techList } = useContext(TechContext);
-    const techs = techList ? techList.techs : [];
+    const { hiddenModal } = useContext(TechContext);
+    const { techList } = useContext(UserContext);
+
     return (
         <section className="container lg h_full">
             <div className={styles.card_list_container}>
@@ -15,10 +17,10 @@ export const TechList = () => {
                     <button onClick={() => hiddenModal()}> <img src={BtnPlus} /> </button>
                 </div>
                 <div>
-                    {techs.length > 0 ? (
+                    {techList.length > 0 ? (
                         <>
                             <ul className={styles.card_list}>
-                                {techList.techs.map((tech) => {
+                                {techList.map((tech) => {
                                     return <TechCard key={tech.id} tech={tech} />
                                 })}
                             </ul>

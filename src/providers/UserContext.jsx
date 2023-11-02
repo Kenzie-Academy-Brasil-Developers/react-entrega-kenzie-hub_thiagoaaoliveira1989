@@ -7,6 +7,7 @@ export const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [techList, setTechList] = useState([]);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const token = localStorage.getItem("@TOKEN")
@@ -20,6 +21,7 @@ export const UserProvider = ({ children }) => {
                 }
             });
             setUser(data);
+            setTechList(data.techs);
         } catch (error) {
             console.log(error);
             alert("Algo de inesperado aconteceu!");
@@ -95,7 +97,7 @@ export const UserProvider = ({ children }) => {
     }
 
     return (
-        <UserContext.Provider value={{ user, userLogin, userRegister, loading, userLogout }}>
+        <UserContext.Provider value={{ user, techList, loadUser, userLogin, userRegister, loading, userLogout }}>
             {children}
         </UserContext.Provider>
     )

@@ -7,48 +7,25 @@ export const TechContext = createContext({});
 
 export const TechProvider = ({ children }) => {
     const [isHidden, setIsHidden] = useState(false);
-    const [techList, setTechList] = useState(null);
     const [editingTech, setEditingTech] = useState(null);
-    const { user } = useContext(UserContext);
 
-
-    useEffect(() => {
-        setTechList(user);
-    }, [user]);
-
+    const { loadUser } = useContext(UserContext);
 
     const hiddenModal = () => {
         setIsHidden(!isHidden);
     }
 
-    const loadUser = async () => {
-        try {
-            const token = localStorage.getItem("@TOKEN");
-            const { data } = await api.get("/profile", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            return data;
-        } catch (error) {
-            console.log(error);
-            return null;
-        }
-    };
 
     const addTech = async (formData) => {
         const token = localStorage.getItem("@TOKEN");
         try {
-            const { data } = await api.post("/users/techs", formData, {
+            await api.post("/users/techs", formData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
 
-            const updatedUser = await loadUser();
-            if (updatedUser) {
-                setTechList(updatedUser);
-            }
+            loadUser();
 
             toast.success("Tech cadastrada com sucesso", {
                 className: "toast-custom-background",
@@ -63,9 +40,6 @@ export const TechProvider = ({ children }) => {
                     className: "toast-custom-background",
                 })
             }
-
-        } finally {
-
         }
     }
 
@@ -73,16 +47,12 @@ export const TechProvider = ({ children }) => {
         const token = localStorage.getItem("@TOKEN");
 
         try {
-            const { data } = await api.delete(`users/techs/${techId}`, {
+            await api.delete(`users/techs/${techId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-
-            const updatedUser = await loadUser();
-            if (updatedUser) {
-                setTechList(updatedUser);
-            }
+            loadUser();
 
             toast.success("Tech deletada com sucesso!", {
                 className: "toast-custom-background",
@@ -98,23 +68,18 @@ export const TechProvider = ({ children }) => {
         const token = localStorage.getItem("@TOKEN");
 
         try {
-            const { data } = await api.put(`users/techs/${editingTech.id}`, formData, {
+            await api.put(`users/techs/${editingTech.id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-
-            const updatedUser = await loadUser();
-            if (updatedUser) {
-                setTechList(updatedUser);
-            }
+            loadUser();
 
             setEditingTech(null);
 
             toast.success("Tech editada com sucesso!", {
                 className: "toast-custom-background",
             })
-
 
         } catch (error) {
             toast.error("Algo de errado aconteceu!", {
@@ -124,7 +89,7 @@ export const TechProvider = ({ children }) => {
     }
 
     return (
-        <TechContext.Provider value={{ editingTech, setEditingTech, editTech, setTechList, addTech, isHidden, hiddenModal, techList, deleteTech }}>
+        <TechContext.Provider value={{ editingTech, setEditingTech, editTech, addTech, isHidden, hiddenModal, deleteTech }}>
             {children}
         </TechContext.Provider>
     )
