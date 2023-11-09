@@ -17,7 +17,7 @@ export const TechList = () => {
                     <button onClick={() => hiddenModal()}> <img src={BtnPlus} /> </button>
                 </div>
                 <div>
-                    {techList.length > 0 ? (
+                    {techList ? (
                         <>
                             <ul className={styles.card_list}>
                                 {techList.map((tech) => {

@@ -12,30 +12,37 @@ export const UserProvider = ({ children }) => {
     const navigate = useNavigate();
     const token = localStorage.getItem("@TOKEN")
 
-
-    const loadUser = async () => {
-        try {
-            const { data } = await api.get("/profile", {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            setUser(data);
-            setTechList(data.techs);
-        } catch (error) {
-            console.log(error);
-            alert("Algo de inesperado aconteceu!");
-        }
-
-    }
-
     useEffect(() => {
+        const getuser = async () => {
+            if (!token) {
+                setUser(null);
+                return;
+            }
 
-        if (token) {
-            loadUser();
+            try {
+                const { data } = await api.get("/profile", {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                setUser(data);
+                setTechList(data.techs);
+            } catch (error) {
+                console.log(error);
+                alert("Algo de inesperado aconteceu!");
+            }
         }
 
-    }, []);
+        getuser();
+
+        return () => {
+            // Função de retorno do useEffect para limpar o usuário quando o componente for desmontado
+            setUser(null);
+        }
+    }, [token]);
+
+
+
 
 
     const userLogin = async (payload) => {
@@ -88,16 +95,18 @@ export const UserProvider = ({ children }) => {
     }
 
     const userLogout = () => {
-        setUser(null);
-        navigate("/");
         localStorage.removeItem("@TOKEN");
+        setUser(null);
         toast.warn("Deslogando...", {
             className: "toast-custom-background",
-        })
+        });
+        navigate("/");
     }
 
+
+
     return (
-        <UserContext.Provider value={{ user, techList, loadUser, userLogin, userRegister, loading, userLogout }}>
+        <UserContext.Provider value={{ user, setTechList, techList, userLogin, userRegister, loading, userLogout }}>
             {children}
         </UserContext.Provider>
     )
